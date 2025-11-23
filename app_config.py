@@ -30,16 +30,18 @@ class API_connection:
         config = configparser.ConfigParser()
         config.read("config.cfg")
 
-        self.api_conn = mbz.set_useragent(config["MusicAPI"]["app_name"], config["MusicAPI"]["version"], config["MusicAPI"]["contact"])
+        self.api_conn = mbz.set_useragent(config["MusicAPI"]["app_name"], 
+                                          config["MusicAPI"]["version"], 
+                                          config["MusicAPI"]["contact"])
         mbz.set_rate_limit(1,1)
-       # query = mbz.search_releases("Green Day", "American Idiot", 1)
-       # print(query)
+        #query = mbz.search_releases("Green Day", "American Idiot", 1)
+        #print(query)
         #print(self.api_conn)
 
-
-api = API_connection()
-api.setup()
-print(api)
+#
+#api = API_connection()
+#api.setup()
+#print(api)
 
 
 

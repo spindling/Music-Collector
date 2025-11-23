@@ -1,5 +1,14 @@
 # Proxy pattern used for ensuring rate limiting when accessing API
 
+class RetrieveMetadata_Interface:
+
+    def __init__(self, artist_name, album_name):
+        self.artist_name = artist_name
+        self.album_name = album_name
+
+    def find_metadata():
+        pass
+
 class RetrieveMetadata:
 
     def __init__(self, artist_name, album_name):
