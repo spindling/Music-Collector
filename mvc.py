@@ -22,19 +22,20 @@ class Model:
 
 
 class Controller:
-    def __init__(self):
-        pass
+    def __init__(self, model, view):
+        self.model = model
+        self.view = view
         
-    def start():
+    def start(self):
+        self.view.menu()
+
+    def modify_database(self):
         pass
 
-    def modify_database():
+    def retrieve_from_database(self):
         pass
 
-    def retrieve_from_database():
-        pass
-
-    def generate_report():
+    def generate_report(self):
         pass
 
 
@@ -43,8 +44,13 @@ class View:
     def __init__(self):
         pass
     
-    def menu():
-        pass
+    def menu(self):
+        print("=================")
+        print("Music-Collector")
+        print("")
+        print("Select from menu")
+        print("1. Add entry")
+
     
     def add_entry():
         pass
