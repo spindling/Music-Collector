@@ -76,9 +76,15 @@ class View:
 
     def display_results(self, results):
         for i in results:
-            print(i['Match #: '])
-            print(i['Title: '])
-            print(i['Artist'])
+            print("Match #: ",i['Match #'])
+            print("Title: ", i['Title'])
+            print("Artist: ", i['Artist'])
+            if 'Date' in i:
+                print("Release date: ", i['Date'])
+            print("Format: ", i['Format'])
+            print("Track Count: ", i['Track-Count'])
+            print("Label: ", i['Label'])
+            print("")
 
     def delete_entry():
         pass

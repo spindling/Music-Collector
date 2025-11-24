@@ -32,8 +32,16 @@ class QueryReleases:
         results = []
         for i in self.query_results['release-list']:
             count += 1
-            results.append({'Match #': count, 'Artist': i['artist-credit-phrase'],'Title': i['title']})
             
+            results.append({'Match #': count, 
+                            'Artist': i['artist-credit-phrase'],
+                            'Title': i['title'],})
+            
+            results[-1]['Format'] = i['medium-list'][0]['format']
+            results[-1]['Track-Count'] = i['medium-list'][0]['track-count']
+            results[-1]['Label'] = i['label-info-list'][0]['label']['name']
+            if 'date' in i:
+                results[-1]['Date'] = i['date']
         return results
     
     def select_match():
