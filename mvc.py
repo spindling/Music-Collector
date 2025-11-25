@@ -14,13 +14,13 @@ class Model:
 
     def retrieve_results(self,artist,album):
         print("Retrieving results...\n")
-        metadata_interface = API_facade.RetrieveMetadata_Interface(artist,album)
-        results = metadata_interface.find_metadata()
+        metadata_retriever = API_facade.RetrieveMetadata_Facade(artist,album)
+        results = metadata_retriever.find_metadata()
         return results
         
     def add_to_database(self, match):
-        print("Your selected entry: ")
-        print(match)
+        #Add database functionality
+        pass
 
     def delete_from_database(self):
         pass

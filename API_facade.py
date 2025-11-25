@@ -1,7 +1,7 @@
 #Facade pattern used to simplify API access
 import app_config
 
-class RetrieveMetadata_Interface:
+class RetrieveMetadata_Facade:
 
     def __init__(self, artist_name, album_name):
         self.artist_name = artist_name
