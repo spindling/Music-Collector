@@ -13,14 +13,14 @@ class Model:
         pass
 
     def retrieve_results(self,artist,album):
-        print("Retrieving results...")
-        
+        print("Retrieving results...\n")
         metadata_interface = API_facade.RetrieveMetadata_Interface(artist,album)
         results = metadata_interface.find_metadata()
         return results
         
-    def add_to_database(self):
-        pass
+    def add_to_database(self, match):
+        print("Your selected entry: ")
+        print(match)
 
     def delete_from_database(self):
         pass
@@ -42,8 +42,9 @@ class Controller:
         artist,album = self.view.add_entry()
         print("Retrieving potential matches...")
         results = self.model.retrieve_results(artist,album)
-        self.view.display_results(results)
-    
+        match = int(self.view.display_results(results))-1
+        self.model.add_to_database(results[match])
+
     def modify_database(self):
         pass
 
@@ -85,6 +86,7 @@ class View:
             print("Track Count: ", i['Track-Count'])
             print("Label: ", i['Label'])
             print("")
+        return input("Enter matching result #: ")
 
     def delete_entry():
         pass
