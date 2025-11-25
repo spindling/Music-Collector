@@ -21,8 +21,11 @@ class Model:
         
     def add_to_database(self, match):
         #Add database functionality
-        db = DB_proxy.Database_Interface()
-        db.read_database()
+        db = DB_proxy.DB_Service()
+        db.start_service()
+        db.store_entry(match)
+        
+        db.end_service()
 
     def delete_from_database(self):
         pass
@@ -39,6 +42,7 @@ class Controller:
           if user_input == "1":
               print("Debug: add entry")
               self.add_entry()
+              
     
     def add_entry(self):
         artist,album = self.view.add_entry()
@@ -46,6 +50,8 @@ class Controller:
         results = self.model.retrieve_results(artist,album)
         match = int(self.view.display_results(results))-1
         self.model.add_to_database(results[match])
+        #print(results[match])
+        
 
     def modify_database(self):
         pass

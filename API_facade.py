@@ -42,6 +42,8 @@ class QueryReleases:
             results[-1]['Label'] = i['label-info-list'][0]['label']['name']
             if 'date' in i:
                 results[-1]['Date'] = i['date']
+            else:
+                results[-1]['Date'] = "n/a"
         return results
     
     def select_match():
