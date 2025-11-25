@@ -6,14 +6,14 @@ import musicbrainzngs as mbz
 class db_connection:
     
     def __init__(self):
-        self.db_conn = None
+        self.db_connection = None
 
     def setup(self):
 
         config = configparser.ConfigParser()
         config.read("config.cfg")
         
-        self.db_conn = mysql.connector.connect(
+        self.db_connection = mysql.connector.connect(
             host = config["MC_Database"]["host"],
             user = config["MC_Database"]["user"],
             password = config["MC_Database"]["password"],

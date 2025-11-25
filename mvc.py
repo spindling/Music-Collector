@@ -1,5 +1,6 @@
 # Model-View-Controller pattern for main interface 
 import API_facade
+import DB_proxy
 
 class Model:
     
@@ -20,7 +21,8 @@ class Model:
         
     def add_to_database(self, match):
         #Add database functionality
-        pass
+        db = DB_proxy.Database_Interface()
+        db.read_database()
 
     def delete_from_database(self):
         pass
