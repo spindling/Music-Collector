@@ -14,7 +14,6 @@ class Model:
         pass
 
     def retrieve_results(self,artist,album):
-        print("Retrieving results...\n")
         metadata_retriever = API_facade.RetrieveMetadata_Facade(artist,album)
         results = metadata_retriever.find_metadata()
         return results
@@ -24,12 +23,17 @@ class Model:
         db = DB_proxy.DB_Service()
         db.start_service()
         db.store_entry(match)
-        
         db.end_service()
 
     def delete_from_database(self):
         pass
 
+    def retrieve_all_entries(self):
+        db = DB_proxy.DB_Service()
+        db.start_service()
+        all_entries = db.read_database()
+        db.end_service()
+        return all_entries
 
 class Controller:
     def __init__(self, model, view):
@@ -40,24 +44,23 @@ class Controller:
         while True:
           user_input = self.view.menu()
           if user_input == "1":
-              print("Debug: add entry")
               self.add_entry()
+          if user_input == "2":
+                self.retrieve_from_database()
               
     
     def add_entry(self):
         artist,album = self.view.add_entry()
-        print("Retrieving potential matches...")
         results = self.model.retrieve_results(artist,album)
         match = int(self.view.display_results(results))-1
         self.model.add_to_database(results[match])
-        #print(results[match])
-        
 
     def modify_database(self):
         pass
 
     def retrieve_from_database(self):
-        pass
+        all_entries = self.model.retrieve_all_entries()
+        self.view.show_entries(all_entries)
 
     def generate_report(self):
         pass
@@ -74,6 +77,7 @@ class View:
         print("")
         print("Main Menu")
         print("1. Add entry")
+        print("2. Display entries")
         return input("Select: ")
     
     def add_entry(self):
@@ -85,6 +89,7 @@ class View:
 
     def display_results(self, results):
         for i in results:
+            print("")
             print("Match #: ",i['Match #'])
             print("Title: ", i['Title'])
             print("Artist: ", i['Artist'])
@@ -99,8 +104,17 @@ class View:
     def delete_entry():
         pass
 
-    def show_entries():
-        pass
+    def show_entries(self, entries):
+        for i in entries:
+            print("")
+            print("Title: ", i[0])
+            print("Artist: ", i[1])
+            print("Format: ", i[2])
+            print("Track Count: ", i[3])
+            print("Label: ", i[4])
+            print("Date :", i[5])
+            print("")
+        #print(entries)
 
     def request_report():
         pass
