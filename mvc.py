@@ -25,8 +25,17 @@ class Model:
         db.store_entry(match)
         db.end_service()
 
-    def delete_from_database(self):
-        pass
+    def delete_db_entry(self, artist, album):
+        db = DB_proxy.DB_Service()
+        db.start_service()
+        db.remove_entry(artist,album)
+        db.end_service()
+
+    def clear_db(self):
+        db = DB_proxy.DB_Service()
+        db.start_service()
+        db.clear_table()
+        db.end_service()
 
     def retrieve_all_entries(self):
         db = DB_proxy.DB_Service()
@@ -42,25 +51,38 @@ class Controller:
         
     def start(self):
         while True:
-          user_input = self.view.menu()
-          if user_input == "1":
-              self.add_entry()
-          if user_input == "2":
+            user_input = self.view.menu()
+            if user_input == "1":
+                self.add_entry()
+            elif user_input == "2":
+                    self.delete_entry()
+            elif user_input == "3":
                 self.retrieve_from_database()
-              
-    
+            elif user_input == "4":
+                self.delete_all_entries()
+
     def add_entry(self):
         artist,album = self.view.add_entry()
         results = self.model.retrieve_results(artist,album)
         match = int(self.view.display_results(results))-1
         self.model.add_to_database(results[match])
 
+    def delete_entry(self):
+        artist, album = self.view.delete_entry()
+        self.model.delete_db_entry(artist,album)
+
+    def delete_all_entries(self):
+        choice = self.view.confirm_choice()
+        if choice == "y":
+            self.model.clear_db()
+
     def modify_database(self):
         pass
 
     def retrieve_from_database(self):
         all_entries = self.model.retrieve_all_entries()
-        self.view.show_entries(all_entries)
+        choice = self.view.show_entries(all_entries)
+        return choice
 
     def generate_report(self):
         pass
@@ -77,12 +99,14 @@ class View:
         print("")
         print("Main Menu")
         print("1. Add entry")
-        print("2. Display entries")
-        return input("Select: ")
+        print("2. Delete entry")
+        print("3. Display existing entries")
+        print("4. Delete all entries")
+        return input("Enter option #: ")
     
     def add_entry(self):
         print("=================")
-        print("Entry Creator")
+        print("Add Entry")
         artist = input("Enter artist: ")   
         album = input("Enter release: ")
         return artist, album
@@ -101,20 +125,29 @@ class View:
             print("")
         return input("Enter matching result #: ")
 
-    def delete_entry():
-        pass
+    def delete_entry(self):
+        print("=================")
+        print("Delete Entry")
+        artist = input("Enter artist: ")
+        album = input("Enter release: ")
+        return artist,album
 
     def show_entries(self, entries):
-        for i in entries:
+        print("\nDisplaying entries: ")
+        for i, data in enumerate(entries):
             print("")
-            print("Title: ", i[0])
-            print("Artist: ", i[1])
-            print("Format: ", i[2])
-            print("Track Count: ", i[3])
-            print("Label: ", i[4])
-            print("Date :", i[5])
+            print("Entry #", i+1)
+            print("Title: ", data[0])
+            print("Artist: ", data[1])
+            print("Format: ", data[2])
+            print("Track Count: ", data[3])
+            print("Label: ", data[4])
+            print("Date :", data[5])
             print("")
-        #print(entries)
+
+
+    def confirm_choice(self):
+        return input("Are you sure? (y/n)")
 
     def request_report():
         pass

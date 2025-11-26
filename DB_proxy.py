@@ -35,10 +35,16 @@ class DB_Service:
    
         return entries
 
+    def remove_entry(self, artist, album):
+        del_entry = "DELETE FROM music_collection WHERE Artist = %s AND Title = %s"
+        data = artist, album
+        self.cursor.execute(del_entry, data)
+        self.music_db.db_connection.commit()
+        
     def store_entry(self, entry):
 
         add_entry = "INSERT INTO music_collection (Title, Artist, format, TrackCount, Label, Date) VALUES (%s, %s, %s, %s, %s, %s)"
-        
+
         data = (entry['Title'], entry['Artist'], entry['Format'], entry['Track-Count'], entry['Label'], entry['Date'])
         self.cursor.execute(add_entry, data)
         self.music_db.db_connection.commit() 
