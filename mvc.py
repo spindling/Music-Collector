@@ -144,7 +144,7 @@ class View:
             print("")
 
     def confirm_choice(self):
-        return input("Are you sure? (y/n)")
+        return input("Are you sure? (y/n): ")
 
     def request_report():
         pass
