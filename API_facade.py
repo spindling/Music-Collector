@@ -45,16 +45,3 @@ class QueryReleases:
             else:
                 results[-1]['Date'] = "n/a"
         return results
-    
-    def select_match():
-        pass
-
-class FormatEntry:
-    
-    def format_metadata():
-        pass
-
-#artist = "Green Day"
-#album = "American Idiot"
-#interface = RetrieveMetadata_Interface(artist, album)
-#interface.find_metadata()

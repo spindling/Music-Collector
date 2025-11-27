@@ -19,7 +19,6 @@ class Model:
         return results
         
     def add_to_database(self, match):
-        #Add database functionality
         db = DB_proxy.DB_Service()
         db.start_service()
         db.store_entry(match)
