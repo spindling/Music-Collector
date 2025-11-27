@@ -38,10 +38,19 @@ class QueryReleases:
             results.append({'Match #': count, 
                             'Artist': i['artist-credit-phrase'],
                             'Title': i['title'],
-                            'Format': i['medium-list'][0]['format'],
-                            'Track-Count' : i['medium-list'][0]['track-count'],
-                            'Label': i['label-info-list'][0]['label']['name']
+                            #'Format': i['medium-list'][0]['format'],
+                            'Track-Count' : i['medium-list'][0]['track-count']
+                            #'Label': i['label-info-list'][0]['label']['name']
                             })
+
+            if 'label' in i['medium-list'][0]:
+                results[-1]['Label'] = i['label-info-list'][0]['label']['name']
+            else:
+                results[-1]['Label'] = "n/a"
+            if 'format' in i['medium-list'][0]:
+                results[-1]['Format'] = i['medium-list'][0]['format']
+            else:
+                results[-1]['Format'] = "n/a"
             if 'date' in i:
                 results[-1]['Date'] = i['date']
             else:

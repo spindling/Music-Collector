@@ -17,30 +17,22 @@ class Model:
         metadata_retriever = API_facade.RetrieveMetadata_Facade(artist,album)
         results = metadata_retriever.find_metadata()
         return results
-        
+    
     def add_to_database(self, match):
-        db = DB_proxy.DB_Service()
-        db.start_service()
+        db = DB_proxy.DB_Proxy()
         db.store_entry(match)
-        db.end_service()
-
+    
     def delete_db_entry(self, artist, album):
-        db = DB_proxy.DB_Service()
-        db.start_service()
+        db = DB_proxy.DB_Proxy()
         db.remove_entry(artist,album)
-        db.end_service()
 
     def clear_db(self):
-        db = DB_proxy.DB_Service()
-        db.start_service()
+        db = DB_proxy.DB_Proxy()
         db.clear_table()
-        db.end_service()
 
     def retrieve_all_entries(self):
-        db = DB_proxy.DB_Service()
-        db.start_service()
+        db = DB_proxy.DB_Proxy()
         all_entries = db.read_database()
-        db.end_service()
         return all_entries
 
 class Controller:
@@ -54,7 +46,7 @@ class Controller:
             if user_input == "1":
                 self.add_entry()
             elif user_input == "2":
-                    self.delete_entry()
+                self.delete_entry()
             elif user_input == "3":
                 self.retrieve_from_database()
             elif user_input == "4":
@@ -94,7 +86,7 @@ class View:
     
     def menu(self):
         print("=================")
-        print("Music-Collector")
+        print("Music Collector")
         print("")
         print("Main Menu")
         print("1. Add entry")
@@ -106,11 +98,15 @@ class View:
     def add_entry(self):
         print("=================")
         print("Add Entry")
+        print("-----------------")
         artist = input("Enter artist: ")   
         album = input("Enter release: ")
         return artist, album
 
     def display_results(self, results):
+        print("=================")
+        print("Matching Results")
+        print("-----------------")
         for i in results:
             print("")
             print("Match #: ",i['Match #'])
@@ -122,17 +118,20 @@ class View:
             print("Track Count: ", i['Track-Count'])
             print("Label: ", i['Label'])
             print("")
-        return input("Enter matching result #: ")
+        return input("Choose matching result #: ")
 
     def delete_entry(self):
         print("=================")
         print("Delete Entry")
+        print("-----------------")
         artist = input("Enter artist: ")
         album = input("Enter release: ")
         return artist,album
 
     def show_entries(self, entries):
-        print("\nDisplaying entries: ")
+        print("=================")
+        print("Your Collection")
+        print("-----------------")
         for i, data in enumerate(entries):
             print("")
             print("Entry #", i+1)
@@ -143,7 +142,6 @@ class View:
             print("Label: ", data[4])
             print("Date :", data[5])
             print("")
-
 
     def confirm_choice(self):
         return input("Are you sure? (y/n)")

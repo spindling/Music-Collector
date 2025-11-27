@@ -3,23 +3,22 @@ import configparser
 import mysql.connector
 import musicbrainzngs as mbz
 
-class db_connection:
+class db_connector:
     
     def __init__(self):
-        self.db_connection = None
+        self.db_login = None
 
     def setup(self):
 
         config = configparser.ConfigParser()
         config.read("config.cfg")
         
-        self.db_connection = mysql.connector.connect(
+        self.db_login = mysql.connector.connect(
             host = config["MC_Database"]["host"],
             user = config["MC_Database"]["user"],
             password = config["MC_Database"]["password"],
             database = config["MC_Database"]["database"]
         )
-
 
 class API_connection:
 
@@ -34,14 +33,5 @@ class API_connection:
                                           config["MusicAPI"]["version"], 
                                           config["MusicAPI"]["contact"])
         mbz.set_rate_limit(1,1)
-        #query = mbz.search_releases("Green Day", "American Idiot", 1)
-        #print(query)
-        #print(self.api_conn)
-
-#
-#api = API_connection()
-#api.setup()
-#print(api)
-
 
 
