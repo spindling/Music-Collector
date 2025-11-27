@@ -9,6 +9,7 @@ class RetrieveMetadata_Facade:
 
     def find_metadata(self):
         query = QueryReleases(self.artist_name, self.album_name)
+        query.setup_connection()
         query.submit_query()
         results = query.format_results()
         return results
@@ -20,13 +21,14 @@ class QueryReleases:
         self.album_name = album_name
         self.query_results = None
 
-    def submit_query(self):
+    def setup_connection(self):
         api = app_config.API_connection()
         api.setup()
-        query = app_config.mbz.search_releases(artist=self.artist_name, release = self.album_name, limit = 2)
+
+    def submit_query(self):
+        query = app_config.mbz.search_releases(artist=self.artist_name, release = self.album_name, limit = 3)
         self.query_results = query
-        #return query
-    
+
     def format_results(self):
         count = 0
         results = []
@@ -35,13 +37,14 @@ class QueryReleases:
             
             results.append({'Match #': count, 
                             'Artist': i['artist-credit-phrase'],
-                            'Title': i['title'],})
-            
-            results[-1]['Format'] = i['medium-list'][0]['format']
-            results[-1]['Track-Count'] = i['medium-list'][0]['track-count']
-            results[-1]['Label'] = i['label-info-list'][0]['label']['name']
+                            'Title': i['title'],
+                            'Format': i['medium-list'][0]['format'],
+                            'Track-Count' : i['medium-list'][0]['track-count'],
+                            'Label': i['label-info-list'][0]['label']['name']
+                            })
             if 'date' in i:
                 results[-1]['Date'] = i['date']
             else:
                 results[-1]['Date'] = "n/a"
+
         return results
