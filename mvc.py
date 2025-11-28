@@ -63,8 +63,8 @@ class Controller:
         self.model.delete_db_entry(artist,album)
 
     def delete_all_entries(self):
-        choice = self.view.confirm_choice()
-        if choice == "y":
+        choice = self.view.delete_database()
+        if choice == "y" or choice == "Y":
             self.model.clear_db()
 
     def modify_database(self):
@@ -92,7 +92,7 @@ class View:
         print("1. Add entry")
         print("2. Delete entry")
         print("3. Display existing entries")
-        print("4. Delete all entries")
+        print("4. Clear database")
         return input("Enter option #: ")
     
     def add_entry(self):
@@ -143,8 +143,8 @@ class View:
             print("Date :", data[5])
             print("")
 
-    def confirm_choice(self):
-        return input("Are you sure? (y/n): ")
+    def delete_database(self):
+        return input("DELETE ALL ENTRIES\nAre you sure? (y/n): ")
 
     def request_report():
         pass
