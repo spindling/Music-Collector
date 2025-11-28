@@ -4,15 +4,6 @@ import DB_proxy
 
 class Model:
     
-    def __init__(self):
-        pass
-
-    def create_report(self):
-        pass
-
-    def retrieve_report_data(self):
-        pass
-
     def retrieve_results(self,artist,album):
         metadata_retriever = API_facade.RetrieveMetadata_Facade(artist,album)
         results = metadata_retriever.find_metadata()
@@ -67,35 +58,30 @@ class Controller:
         if choice == "y" or choice == "Y":
             self.model.clear_db()
 
-    def modify_database(self):
-        pass
-
     def retrieve_from_database(self):
         all_entries = self.model.retrieve_all_entries()
-        choice = self.view.show_entries(all_entries)
+        choice = self.view.generate_report(all_entries)
         return choice
-
-    def generate_report(self):
-        pass
-
+        
 
 class View:
 
-    def __init__(self):
-        pass
-    
     def menu(self):
+        print("")
         print("=================")
         print("Music Collector")
-        print("")
+        print("-----------------")
         print("Main Menu")
         print("1. Add entry")
         print("2. Delete entry")
-        print("3. Display existing entries")
-        print("4. Clear database")
+        print("3. Display collection")
+        print("4. Generate report")
+        print("5. Clear database")
+
         return input("Enter option #: ")
     
     def add_entry(self):
+        print("")
         print("=================")
         print("Add Entry")
         print("-----------------")
@@ -104,6 +90,7 @@ class View:
         return artist, album
 
     def display_results(self, results):
+        print("")
         print("=================")
         print("Matching Results")
         print("-----------------")
@@ -117,10 +104,11 @@ class View:
             print("Format: ", i['Format'])
             print("Track Count: ", i['Track-Count'])
             print("Label: ", i['Label'])
-            print("")
+
         return input("Choose matching result #: ")
 
     def delete_entry(self):
+        print("")
         print("=================")
         print("Delete Entry")
         print("-----------------")
@@ -128,7 +116,8 @@ class View:
         album = input("Enter release: ")
         return artist,album
 
-    def show_entries(self, entries):
+    def generate_report(self, entries):
+        print("")
         print("=================")
         print("Your Collection")
         print("-----------------")
@@ -141,8 +130,7 @@ class View:
             print("Track Count: ", data[3])
             print("Label: ", data[4])
             print("Date :", data[5])
-            print("")
-
+        
     def delete_database(self):
         return input("DELETE ALL ENTRIES\nAre you sure? (y/n): ")
 

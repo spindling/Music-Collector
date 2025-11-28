@@ -1,24 +1,29 @@
 # Proxy pattern used to provide logging functionality
 import app_config
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class DB_Interface(ABC):
-
+    @abstractmethod
     def __start_service(self):
         pass
- 
+
+    @abstractmethod
     def __end_service(self):
         pass
-
+        
+    @abstractmethod
     def clear_table(self):
         pass
 
+    @abstractmethod
     def read_database(self):
         pass
 
+    @abstractmethod
     def remove_entry(self, artist, album):
         pass
 
+    @abstractmethod
     def store_entry(self, entry):
         pass
     
@@ -80,13 +85,11 @@ class DB_Proxy(DB_Interface):
         print("")
         print("Deleting all entries...")
         self.service.clear_table()
-        print("")
 
     def read_database(self):
         print("")
         print("Retrieving entries...")
         results = self.service.read_database()
-        print("")
         return results
 
     def remove_entry(self, artist, album):
@@ -94,12 +97,11 @@ class DB_Proxy(DB_Interface):
         print("Removing entry...")
         self.service.remove_entry(artist,album)
         print("Entry removed!")
-        print("")
 
     def store_entry(self, entry):
         print("")
         print("Storing entry...")
         self.service.store_entry(entry)
         print("Entry stored in database!")
-        print("")
+
 
