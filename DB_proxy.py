@@ -3,13 +3,6 @@ import app_config
 from abc import ABC, abstractmethod
 
 class DB_Interface(ABC):
-    @abstractmethod
-    def __start_service(self):
-        pass
-
-    @abstractmethod
-    def __end_service(self):
-        pass
         
     @abstractmethod
     def clear_table(self):
@@ -74,12 +67,6 @@ class DB_Proxy(DB_Interface):
     ## Proxy functions as a logger for Database functions
     def __init__(self):
         self.service = DB_Service()
-
-    def __start_service(self):
-        pass
- 
-    def __end_service(self):
-        pass
 
     def clear_table(self):
         print("")

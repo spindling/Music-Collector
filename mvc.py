@@ -7,6 +7,7 @@ class Model:
     def retrieve_results(self,artist,album):
         metadata_retriever = API_facade.RetrieveMetadata_Facade(artist,album)
         results = metadata_retriever.find_metadata()
+        print(type(results))
         return results
     
     def add_to_database(self, match):
