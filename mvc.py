@@ -1,4 +1,19 @@
-# Model-View-Controller pattern for main interface 
+# mvc.py
+# - The Model-View-Controller (MVC) pattern serves the primary
+# organizational pattern of the application.
+# - The application is divided into 3 parts:
+#   - Model. This component carries out functionality with
+#     the third-party API and database. It receives requests
+#     for these operations from the Controller, and may pass
+#     the results back.
+#   - Controller.  This component serves as the intermediary
+#     between the Model and View components. Based on user
+#     input from the View, it can carry out tasks using the
+#     Model. Conversely, information from the Model can be 
+#     displayed by using the View.
+#   - View. This component communicates with the Controller
+#     to display information and receive input from the user.
+
 import API_facade
 import DB_proxy
 
@@ -26,7 +41,6 @@ class Model:
         all_entries = db.read_database()
         return all_entries
         
-
 class Controller:
     def __init__(self, model, view):
         self.model = model

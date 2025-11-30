@@ -1,4 +1,16 @@
-# Proxy pattern used to provide logging functionality
+# DB_proxy.py
+# - The Proxy pattern is used to implement logging functionality 
+#   to track calls that access the database. 
+# - DB_Interface sets the interface for both DB_Service and DB_Proxy
+#   by specifying which methods are required.
+# - DB_Service performs the actual connections and actions with 
+#   the database.
+# - DB_Proxy serves as the access point through which the client
+#   requests functionality from DB_Service. In this application,
+#   the client is the Model in mvc.py
+# - DB_Proxy performs the desired logging functions and passes 
+#   the client request on to DB_Service.
+
 import app_config
 from abc import ABC, abstractmethod
 
@@ -66,7 +78,6 @@ class DB_Service(DB_Interface):
         self.__end_service()
  
 class DB_Proxy(DB_Interface):
-    ## Proxy functions as a logger for database functions
     def __init__(self):
         self.service = DB_Service()
 

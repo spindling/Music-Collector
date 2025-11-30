@@ -1,4 +1,6 @@
-# Set up database and API connections
+# app_config.py
+# - Used by API_facade.py and DB_proxy.py to set 
+#   up database and API connections from config.cfg.
 import configparser
 import mysql.connector
 import musicbrainzngs as mbz

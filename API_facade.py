@@ -1,3 +1,12 @@
+# API_facade.py
+# - Connection to the API is simplified using the Facade pattern. 
+# - Retrieve_Metadata_Facade is set up as the interface.
+# - The find_metadata() method performs a sequence of actions
+#   (using the QueryReleases class) that are required to 
+#   submit queries to the API and format the result.
+# - This allows for the retrieve_metadata() function within
+#   the Model of mvc.py to use the Facade interface to
+#   simplify interaction with the API.
 
 import app_config
 

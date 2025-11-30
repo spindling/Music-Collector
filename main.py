@@ -1,4 +1,6 @@
-#
+# main.py
+# - Setups up the model, view, and controller objects through
+#   mvc.py and starts the application. 
 import mvc
 
 def main():
