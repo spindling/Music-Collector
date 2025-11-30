@@ -30,6 +30,8 @@ class DB_Service(DB_Interface):
         self.__music_db = app_config.db_connector()
         self.__music_db.setup()
         self.__cursor = self.__music_db.db_login.cursor()
+        print(type(self._DB_Service__cursor))
+        print(type(self._DB_Service__music_db))
 
     def __end_service(self):
         self.__music_db.db_login.close()
@@ -64,7 +66,7 @@ class DB_Service(DB_Interface):
         self.__end_service()
  
 class DB_Proxy(DB_Interface):
-    ## Proxy functions as a logger for Database functions
+    ## Proxy functions as a logger for database functions
     def __init__(self):
         self.service = DB_Service()
 

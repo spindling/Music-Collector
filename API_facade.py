@@ -1,4 +1,4 @@
-#Facade pattern used to simplify API access
+
 import app_config
 
 class RetrieveMetadata_Facade:
@@ -19,20 +19,20 @@ class QueryReleases:
     def __init__(self, artist_name, album_name):
         self.artist_name = artist_name
         self.album_name = album_name
-        self.query_results = None
+        self.__query_results = list
 
-    def setup_connection():
+    def setup_connection(self):
         api = app_config.API_connector()
         api.setup()
 
     def submit_query(self):
         query = app_config.mbz.search_releases(artist=self.artist_name, release = self.album_name, limit = 3)
-        self.query_results = query
+        self.__query_results = query
 
     def format_results(self):
         count = 0
         results = []
-        for i in self.query_results['release-list']:
+        for i in self.__query_results['release-list']:
             count += 1
             
             results.append({'Match #': count, 
@@ -55,5 +55,4 @@ class QueryReleases:
                 results[-1]['Date'] = i['date']
             else:
                 results[-1]['Date'] = "n/a"
-
         return results

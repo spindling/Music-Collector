@@ -22,14 +22,11 @@ class db_connector:
 
 class API_connector:
 
-    def __init__(self):
-        self.api_conn = None
-
     def setup(self):
         config = configparser.ConfigParser()
         config.read("config.cfg")
-
-        self.api_conn = mbz.set_useragent(config["MusicAPI"]["app_name"], 
+        
+        mbz.set_useragent(config["MusicAPI"]["app_name"], 
                                           config["MusicAPI"]["version"], 
                                           config["MusicAPI"]["contact"])
         mbz.set_rate_limit(1,1)
