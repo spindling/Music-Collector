@@ -7,6 +7,5 @@ def main():
     controller = mvc.Controller(model, view)
     controller.start()
         
-
 if __name__=="__main__":
     main()

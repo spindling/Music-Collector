@@ -23,27 +23,27 @@ class DB_Interface(ABC):
 class DB_Service(DB_Interface):
 
     def __init__(self):
-        self.cursor = None
-        self.music_db = None
+        self.__cursor = None
+        self.__music_db = None
   
     def __start_service(self):
-        self.music_db = app_config.db_connector()
-        self.music_db.setup()
-        self.cursor = self.music_db.db_login.cursor()
+        self.__music_db = app_config.db_connector()
+        self.__music_db.setup()
+        self.__cursor = self.__music_db.db_login.cursor()
 
     def __end_service(self):
-        self.music_db.db_login.close()
-        self.cursor.close()
+        self.__music_db.db_login.close()
+        self.__cursor.close()
 
     def clear_table(self):
         self.__start_service()
-        self.cursor.execute("TRUNCATE TABLE music_collection")
+        self.__cursor.execute("TRUNCATE TABLE music_collection")
         self.__end_service()
     
     def read_database(self):
         self.__start_service()
-        self.cursor.execute("SELECT * FROM music_collection")
-        entries = self.cursor.fetchall()
+        self.__cursor.execute("SELECT * FROM music_collection")
+        entries = self.__cursor.fetchall()
         self.__end_service()
         return entries
 
@@ -51,16 +51,16 @@ class DB_Service(DB_Interface):
         self.__start_service()
         del_entry = "DELETE FROM music_collection WHERE Artist = %s AND Title = %s"
         data = artist, album
-        self.cursor.execute(del_entry, data)
-        self.music_db.db_login.commit()
+        self.__cursor.execute(del_entry, data)
+        self.__music_db.db_login.commit()
         self.__end_service()
 
     def store_entry(self, entry):
         self.__start_service()
         add_entry = "INSERT INTO music_collection (Title, Artist, format, TrackCount, Label, Date) VALUES (%s, %s, %s, %s, %s, %s)"
         data = (entry['Title'], entry['Artist'], entry['Format'], entry['Track-Count'], entry['Label'], entry['Date'])
-        self.cursor.execute(add_entry, data)
-        self.music_db.db_login.commit() 
+        self.__cursor.execute(add_entry, data)
+        self.__music_db.db_login.commit() 
         self.__end_service()
  
 class DB_Proxy(DB_Interface):

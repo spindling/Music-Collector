@@ -4,10 +4,9 @@ import DB_proxy
 
 class Model:
     
-    def retrieve_results(self,artist,album):
+    def retrieve_metadata(self,artist,album):
         metadata_retriever = API_facade.RetrieveMetadata_Facade(artist,album)
         results = metadata_retriever.find_metadata()
-        print(type(results))
         return results
     
     def add_to_database(self, match):
@@ -26,6 +25,7 @@ class Model:
         db = DB_proxy.DB_Proxy()
         all_entries = db.read_database()
         return all_entries
+        
 
 class Controller:
     def __init__(self, model, view):
@@ -40,13 +40,15 @@ class Controller:
             elif user_input == "2":
                 self.delete_entry()
             elif user_input == "3":
-                self.retrieve_from_database()
+                self.retrieve_report_data()
             elif user_input == "4":
                 self.delete_all_entries()
+            elif user_input == "5":
+                quit()
 
     def add_entry(self):
         artist,album = self.view.add_entry()
-        results = self.model.retrieve_results(artist,album)
+        results = self.model.retrieve_metadata(artist,album)
         match = int(self.view.display_results(results))-1
         self.model.add_to_database(results[match])
 
@@ -59,7 +61,7 @@ class Controller:
         if choice == "y" or choice == "Y":
             self.model.clear_db()
 
-    def retrieve_from_database(self):
+    def retrieve_report_data(self):
         all_entries = self.model.retrieve_all_entries()
         choice = self.view.generate_report(all_entries)
         return choice
@@ -75,10 +77,9 @@ class View:
         print("Main Menu")
         print("1. Add entry")
         print("2. Delete entry")
-        print("3. Display collection")
-        print("4. Generate report")
-        print("5. Clear database")
-
+        print("3. Generate Report")
+        print("4. Clear database")
+        print("5. Exit program")
         return input("Enter option #: ")
     
     def add_entry(self):
@@ -105,7 +106,6 @@ class View:
             print("Format: ", i['Format'])
             print("Track Count: ", i['Track-Count'])
             print("Label: ", i['Label'])
-
         return input("Choose matching result #: ")
 
     def delete_entry(self):
@@ -134,6 +134,3 @@ class View:
         
     def delete_database(self):
         return input("DELETE ALL ENTRIES\nAre you sure? (y/n): ")
-
-    def request_report():
-        pass

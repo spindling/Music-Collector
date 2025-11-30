@@ -20,7 +20,7 @@ class db_connector:
             database = config["MC_Database"]["database"]
         )
 
-class API_connection:
+class API_connector:
 
     def __init__(self):
         self.api_conn = None

@@ -13,7 +13,7 @@ class RetrieveMetadata_Facade:
         query.submit_query()
         results = query.format_results()
         return results
-
+    
 class QueryReleases:
 
     def __init__(self, artist_name, album_name):
@@ -21,8 +21,8 @@ class QueryReleases:
         self.album_name = album_name
         self.query_results = None
 
-    def setup_connection(self):
-        api = app_config.API_connection()
+    def setup_connection():
+        api = app_config.API_connector()
         api.setup()
 
     def submit_query(self):
